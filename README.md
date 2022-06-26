@@ -97,3 +97,4 @@ JSON does not support `Infinity` and `NaN` from IEEE 754, so by default, the str
 - Allow individual strings to be escaped with different escapers.
 - Implmenent `makeSchema` to allow for dynamic schema creation from unknown JS objects.
 - Implement serialization for types.
+- Publish to NPM.
