@@ -60,7 +60,7 @@ protobufjs x 88,796 ops/sec ±1.00% (90 runs sampled)
 # worst-json-stringify is +34.21% faster
 ```
 
-`slow-json-stringify` is not included in the benchmarks because it doesn't escape strings fully.
+Here `slow-json-stringify` is set to escape strings with its default escaper.
 
 ## Explaination
 
