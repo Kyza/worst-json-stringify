@@ -88,7 +88,7 @@ Currently the following types are supported:
 
 By default, the stringifier will escape all strings. This will reduce performance drastically, but it's much safer, especially if you're using large strings. If you are *absolutely sure* you don't need to escape strings, you can pass `escape: false` to the `string` type on the schema.
 
-JSON does not support `Infinity` and `NaN` from IEEE 754, so by default, the stringifier will convert `Infinity` and `NaN` to `null`. This will reduce performance slightly and lose data, but the result will be compatible with the specification and `JSON.parse`. To allow `Infinity` and `NaN` to be stringified "properly", pass `fullIEEE754: true` to the `number` type on the schema.
+JSON does not support `Infinity` and `NaN` from IEEE 754, so by default the stringifier will convert `Infinity` and `NaN` to `null`. This will reduce performance slightly and lose data, but the result will be compatible with the specification and `JSON.parse`. To allow `Infinity` and `NaN` to be stringified "properly", pass `fullIEEE754: true` to the `number` type on the schema.
 
 ## TODOs
 
