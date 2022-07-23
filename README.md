@@ -1,6 +1,6 @@
 # worst-json-stringify
 
-Extremely fast JSON stringifying without iteration.
+Extremely fast JSON stringifying *almost* without iteration.
 
 ## Usage
 
@@ -10,13 +10,10 @@ const stringifyUser = makeStringifier({
 	children: {
 		firstName: { type: "string" },
 		lastName: { type: "string", optional: true },
-		age: { type: "number", fullIEEE754: true },
+		age: { type: "number" },
 		obj: {
-			type: "struct",
-			children: {
-				one: { type: "boolean" },
-				two: { type: "number" },
-			},
+			type: "object",
+			types: [{ type: "boolean" }],
 		},
 	},
 });
@@ -37,6 +34,8 @@ console.log(
 ```
 
 ## Benchmarks
+
+**Currently outdated with the most recent update, but likely similar to the current performance.**
 
 ### Fastest Possible Options
 
@@ -60,20 +59,18 @@ protobufjs x 88,796 ops/sec ±1.00% (90 runs sampled)
 # worst-json-stringify is +34.21% faster
 ```
 
-`slow-json-stringify` is not included in the benchmarks because it doesn't escape strings fully.
-
 ## Explaination
 
-Think of it like a macro. It takes in a schema and returns a function that is specifically made to stringify objects that match that schema. The function it generates--assuming it doesn't contain an `object` or `array` type--will stringify the object without using any iteration. That makes it incredibly fast at what it does.
+Think of it like a macro. It takes in a schema and returns a function that is specifically made to stringify objects that match that schema. The function it generates--assuming it doesn't contain an `object` or `array` type--will stringify the object without iterating over any properties. That makes it incredibly fast at what it does.
 
 ## Types
 
 Currently the following types are supported:
 
 - [x] struct
-- [ ] object
+- [x] object
 - [x] tuple
-- [ ] array
+- [x] array
 - [x] string
 - [x] boolean
 - [x] number
@@ -88,12 +85,9 @@ Currently the following types are supported:
 
 By default, the stringifier will escape all strings. This will reduce performance drastically, but it's much safer, especially if you're using large strings. If you are *absolutely sure* you don't need to escape strings, you can pass `escape: false` to the `string` type on the schema.
 
-JSON does not support `Infinity` and `NaN` from IEEE 754, so by default, the stringifier will convert `Infinity` and `NaN` to `null`. This will reduce performance slightly and lose data, but the result will be compatible with the specification and `JSON.parse`. To allow `Infinity` and `NaN` to be stringified "properly", pass `fullIEEE754: true` to the `number` type on the schema.
+JSON does not support `Infinity` and `NaN` from IEEE 754, so by default the stringifier will convert `Infinity` and `NaN` to `null`. This will reduce performance slightly and lose data, but the result will be compatible with the specification and `JSON.parse`. To allow `Infinity` and `NaN` to be stringified "properly" you will need to use custom a replacer.
 
 ## TODOs
 
-- Add support for `object` and `array` types.
-- Add extensibility.
-- Allow individual strings to be escaped with different escapers.
 - Implmenent `makeSchema` to allow for dynamic schema creation from unknown JS objects.
 - Implement serialization for types.
