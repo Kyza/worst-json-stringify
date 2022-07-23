@@ -13,7 +13,7 @@ const stringifyUser = makeStringifier({
 		age: { type: "number" },
 		obj: {
 			type: "object",
-			types: [{ type: "boolean" }, { type: "number" }],
+			types: [{ type: "number" }, { type: "boolean" }],
 		},
 	},
 });
