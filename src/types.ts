@@ -23,10 +23,9 @@ export type BooleanType = {
 };
 export type NumberType = {
 	type: "number";
-	fullIEEE754?: boolean;
 };
 
-export type Type =
+export type KnownType =
 	| StructType
 	| ObjectType
 	| TupleType
@@ -34,6 +33,13 @@ export type Type =
 	| StringType
 	| BooleanType
 	| NumberType;
+export type CustomType = {
+	// A string that isn't a known type.
+	type: Exclude<string, KnownType["type"]>;
+	[key: PropertyKey]: any;
+};
+
+export type Type = KnownType | CustomType;
 export type OptionalType = Type & { optional?: true };
 
 export type Schema =
@@ -41,3 +47,10 @@ export type Schema =
 	| Omit<ObjectType, "optional">
 	| Omit<TupleType, "optional">
 	| Omit<ArrayType, "optional">;
+
+export type ReplacerFunction = (
+	accessor: string,
+	type: Type,
+	deep: PropertyKey[],
+	iterator: boolean
+) => any;

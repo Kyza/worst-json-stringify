@@ -4,11 +4,9 @@
  */
 import Benchmark from "benchmark";
 
-import fjs from "fast-json-stringify";
-import { sjs, attr } from "slow-json-stringify";
-import { makeStringifier } from "../dist/index.js";
 import protobuf from "protobufjs";
-import parse from "fast-json-parse";
+import { attr, sjs } from "slow-json-stringify";
+import { makeStringifier } from "../dist/index.js";
 
 const suite = new Benchmark.Suite();
 
@@ -291,60 +289,54 @@ const worstStringify = makeStringifier({
 	type: "struct",
 	children: {
 		string: { type: "string", escape: false },
-		uint32: { type: "number", fullIEEE754: true },
+		uint32: { type: "number" },
 		inner: {
 			type: "struct",
 			children: {
-				int32: { type: "number", fullIEEE754: true },
+				int32: { type: "number" },
 				innerInner: {
 					type: "struct",
 					children: {
 						long: {
 							type: "struct",
 							children: {
-								low: { type: "number", fullIEEE754: true },
-								high: { type: "number", fullIEEE754: true },
+								low: { type: "number" },
+								high: { type: "number" },
 
 								unsigned: { type: "boolean" },
 							},
 						},
-						enum: { type: "number", fullIEEE754: true },
-						enum1: { type: "number", fullIEEE754: true },
-						enum2: { type: "number", fullIEEE754: true },
-						enum3: { type: "number", fullIEEE754: true },
-						enum4: { type: "number", fullIEEE754: true },
-						enum5: { type: "number", fullIEEE754: true },
-						enum6: { type: "number", fullIEEE754: true },
-						enum7: { type: "number", fullIEEE754: true },
-						enum8: { type: "number", fullIEEE754: true },
-						enum9: { type: "number", fullIEEE754: true },
-						enum0: { type: "number", fullIEEE754: true },
-						sint32: { type: "number", fullIEEE754: true },
+						enum: { type: "number" },
+						enum1: { type: "number" },
+						enum2: { type: "number" },
+						enum3: { type: "number" },
+						enum4: { type: "number" },
+						enum5: { type: "number" },
+						enum6: { type: "number" },
+						enum7: { type: "number" },
+						enum8: { type: "number" },
+						enum9: { type: "number" },
+						enum0: { type: "number" },
+						sint32: { type: "number" },
 					},
 				},
 				outer: {
 					type: "struct",
 					children: {
 						bool: {
-							type: "tuple",
-							children: [
-								{ type: "boolean" },
-								{ type: "boolean" },
-								{ type: "boolean" },
-								{ type: "boolean" },
-								{ type: "boolean" },
-								{ type: "boolean" },
-								{ type: "boolean" },
-							],
+							type: "array",
+							types: [{ type: "boolean" }],
 						},
-						double: { type: "number", fullIEEE754: true },
+						double: { type: "number" },
 					},
 				},
 			},
 		},
-		float: { type: "number", fullIEEE754: true },
+		float: { type: "number" },
 	},
 });
+
+console.log("result", worstStringify.toString());
 
 const MessageType = protobuf
 	.loadSync("./benchmark/benchmark.proto")

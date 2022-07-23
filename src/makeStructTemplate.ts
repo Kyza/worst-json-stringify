@@ -1,24 +1,26 @@
 import accessSubKey from "./accessSubKey";
 import escapeString from "./escapeString";
 import makeValueString from "./makeValueString";
-import { StructType } from "./types";
+import { ReplacerFunction, StructType } from "./types";
 
 export default function makeStructTemplate(
 	type: StructType,
-	deep: PropertyKey[] = []
+	deep: PropertyKey[] = [],
+	replacer?: ReplacerFunction | void
 ) {
 	let template = '"{"';
 
 	let first = true;
 	for (let [childKey, childType] of Object.entries(type.children)) {
-		const accessor = accessSubKey([...deep, childKey]);
+		const newDeep = [...deep, childKey];
+		const accessor = accessSubKey(newDeep);
 		let nextValueString = "";
 
-		nextValueString = makeValueString(accessor, childType, [...deep, childKey]);
+		nextValueString = makeValueString(accessor, childType, newDeep, replacer);
 
 		// If the type is optional, make sure to optional chain the accessor.
 		if (childType.optional) {
-			const optionalAccessor = accessSubKey([...deep, childKey], true);
+			const optionalAccessor = accessSubKey(newDeep, true);
 			// We only need to access with optional chaining to check if it exists. If it does we can use the accessor without optional chaining for more speed.
 			template += `+(${optionalAccessor}!=null?\`${
 				first ? "" : ","
