@@ -1,6 +1,6 @@
-import accessSubKey from "./accessSubKey";
-import makeValueString from "./makeValueString";
-import { ArrayType, ReplacerFunction } from "./types";
+import accessSubKey from "./accessSubKey.js";
+import makeValueString from "./makeValueString.js";
+import { ArrayType, ReplacerFunction } from "./types.js";
 
 export default function makeArrayTemplate(
 	schema: ArrayType,

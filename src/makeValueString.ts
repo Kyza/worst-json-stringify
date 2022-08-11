@@ -1,8 +1,8 @@
-import makeArrayTemplate from "./makeArrayTemplate";
-import makeObjectTemplate from "./makeObjectTemplate";
-import makeStructTemplate from "./makeStructTemplate";
-import makeTupleTemplate from "./makeTupleTemplate";
-import { ReplacerFunction, Type } from "./types";
+import makeArrayTemplate from "./makeArrayTemplate.js";
+import makeObjectTemplate from "./makeObjectTemplate.js";
+import makeStructTemplate from "./makeStructTemplate.js";
+import makeTupleTemplate from "./makeTupleTemplate.js";
+import { ReplacerFunction, Type } from "./types.js";
 
 export default function makeValueString(
 	accessor: string,

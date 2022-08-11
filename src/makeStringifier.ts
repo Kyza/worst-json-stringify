@@ -1,6 +1,6 @@
-import escapeString from "./escapeString";
-import makeValueString from "./makeValueString";
-import { ReplacerFunction, Schema } from "./types";
+import escapeString from "./escapeString.js";
+import makeValueString from "./makeValueString.js";
+import { ReplacerFunction, Schema } from "./types.js";
 
 export default function makeStringifier(
 	schema: Schema,

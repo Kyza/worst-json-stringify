@@ -14,7 +14,8 @@
 	"scripts": {
 		"build": "tsc -p tsconfig.json",
 		"bench": "pnpm run build && node --experimental-specifier-resolution=node ./benchmark/all.js",
-		"test": "bun run ./test/index.test.ts"
+		"test": "bun run ./test/index.test.ts",
+		"prepare": "\"$npm_execpath\" run build"
 	},
 	"keywords": [],
 	"author": "Kyza",

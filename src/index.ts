@@ -1,2 +1,2 @@
-export { default as makeStringifier } from "./makeStringifier";
-export { default as makeSchema } from "./makeSchema";
+export { default as makeStringifier } from "./makeStringifier.js";
+export { default as makeSchema } from "./makeSchema.js";
