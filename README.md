@@ -4,6 +4,10 @@ Extremely fast JSON stringifying *almost* without iteration.
 
 ## Usage
 
+```bash
+pnpm i worst-json-stringify
+```
+
 ```js
 const stringifyUser = makeStringifier({
 	type: "struct",
