@@ -1,8 +1,8 @@
-import makeArrayTemplate from "./makeArrayTemplate";
-import makeObjectTemplate from "./makeObjectTemplate";
-import makeStructTemplate from "./makeStructTemplate";
-import makeTupleTemplate from "./makeTupleTemplate";
-import { ReplacerFunction, Schema } from "./types";
+import makeArrayTemplate from "#wjs/makeArrayTemplate";
+import makeObjectTemplate from "#wjs/makeObjectTemplate";
+import makeStructTemplate from "#wjs/makeStructTemplate";
+import makeTupleTemplate from "#wjs/makeTupleTemplate";
+import { ReplacerFunction, Schema } from "#wjs/types";
 
 export default function makeTemplate(
 	schema: Schema,

@@ -1,6 +1,6 @@
-import accessSubKey from "accessSubKey";
-import makeValueString from "makeValueString";
-import { ObjectType, ReplacerFunction } from "./types";
+import accessSubKey from "#wjs/accessSubKey";
+import makeValueString from "#wjs/makeValueString";
+import { ObjectType, ReplacerFunction } from "#wjs/types";
 
 export default function makeObjectTemplate(
 	schema: ObjectType,
@@ -11,12 +11,10 @@ export default function makeObjectTemplate(
 	let template = `"{"+Object.entries(${accessor}).reduce((acc,[key, obj],i)=>{if(i>0)acc+=",";acc+='"'+this.escapeString(key)+'":';`;
 
 	let first = true;
-	let key = 0;
 	for (let type of schema.types) {
 		template += makeValueString("obj", type, [], replacer, true);
 
 		if (first) first = false;
-		key++;
 	}
 
 	return template + `return acc;},"")+"}"`;

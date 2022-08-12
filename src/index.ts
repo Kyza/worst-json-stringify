@@ -1,2 +1,1 @@
-export { default as makeStringifier } from "./makeStringifier";
-export { default as makeSchema } from "./makeSchema";
+export { default as makeStringifier } from "#wjs/makeStringifier";

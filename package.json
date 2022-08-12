@@ -4,20 +4,37 @@
 	"main": "./dist/index.js",
 	"type": "module",
 	"devDependencies": {
-		"benchmark": "^2.1.4",
+		"@types/node": "^18.7.2",
 		"fast-json-parse": "^1.0.3",
 		"fast-json-stringify": "^3.0.3",
+		"mitata": "^0.1.6",
 		"protobufjs": "^6.11.2",
 		"slow-json-stringify": "^2.0.1",
-		"typescript": "^4.6.3"
+		"terser": "^5.14.2",
+		"typescript": "^4.6.3",
+		"vite": "^3.0.6"
 	},
 	"scripts": {
-		"build": "tsc -p tsconfig.json",
-		"bench": "pnpm run build && node --experimental-specifier-resolution=node ./benchmark/all.js",
-		"test": "bun run ./test/index.test.ts"
+		"build": "vite build -m production",
+		"dev": "vite build -m development",
+		"bench": "pnpm run build && node ./benchmark/all.js",
+		"test": "pnpm run dev && node ./test.js"
 	},
-	"keywords": [],
+	"keywords": [
+		"json",
+		"schema",
+		"stringify",
+		"fast-json-stringify",
+		"slow-json-stringify",
+		"protobufjs"
+	],
+	"files": [
+		"package.json",
+		"LICENSE",
+		"dist",
+		"README.md"
+	],
 	"author": "Kyza",
 	"license": "MIT",
-	"description": ""
+	"description": "Extremely fast JSON stringifying *almost* without iteration."
 }

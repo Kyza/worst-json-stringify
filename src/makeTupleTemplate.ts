@@ -1,6 +1,6 @@
-import accessSubKey from "./accessSubKey";
-import makeValueString from "./makeValueString";
-import { ReplacerFunction, TupleType } from "./types";
+import accessSubKey from "#wjs/accessSubKey";
+import makeValueString from "#wjs/makeValueString";
+import { ReplacerFunction, TupleType } from "#wjs/types";
 
 export default function makeTupleTemplate(
 	schema: TupleType,

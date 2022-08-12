@@ -1,8 +1,8 @@
-import makeArrayTemplate from "./makeArrayTemplate";
-import makeObjectTemplate from "./makeObjectTemplate";
-import makeStructTemplate from "./makeStructTemplate";
-import makeTupleTemplate from "./makeTupleTemplate";
-import { ReplacerFunction, Type } from "./types";
+import makeArrayTemplate from "#wjs/makeArrayTemplate";
+import makeObjectTemplate from "#wjs/makeObjectTemplate";
+import makeStructTemplate from "#wjs/makeStructTemplate";
+import makeTupleTemplate from "#wjs/makeTupleTemplate";
+import { ReplacerFunction, Type } from "#wjs/types";
 
 export default function makeValueString(
 	accessor: string,
@@ -10,8 +10,8 @@ export default function makeValueString(
 	deep: PropertyKey[],
 	replacer: ReplacerFunction | void,
 	iterator?: boolean
-) {
-	let override;
+): string {
+	let override: string | undefined;
 	if (typeof replacer === "function") {
 		override = replacer(accessor, { ...type }, [...deep], !!iterator);
 	}
@@ -85,30 +85,4 @@ export default function makeValueString(
 			// If the type is not specified, return the accessor.
 			return accessor;
 	}
-}
-
-function anonymous(obj) {
-	return (
-		"[" +
-		'"' +
-		this.escapeString(obj[0]) +
-		'"' +
-		"," +
-		undefined +
-		"," +
-		(!Number.isFinite(obj[2]) ? null : obj[2]) +
-		"," +
-		"[" +
-		obj[3].map((obj) => {
-			if (typeof obj === "boolean") {
-				return obj;
-			}
-			if (typeof obj === "number") {
-				return !Number.isFinite(obj) ? null : obj;
-			}
-			return obj;
-		}) +
-		"]" +
-		"]"
-	);
 }

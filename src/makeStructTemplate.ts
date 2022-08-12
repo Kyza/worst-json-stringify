@@ -1,7 +1,7 @@
-import accessSubKey from "./accessSubKey";
-import escapeString from "./escapeString";
-import makeValueString from "./makeValueString";
-import { ReplacerFunction, StructType } from "./types";
+import accessSubKey from "#wjs/accessSubKey";
+import escapeString from "#wjs/escapeString";
+import makeValueString from "#wjs/makeValueString";
+import { ReplacerFunction, StructType } from "#wjs/types";
 
 export default function makeStructTemplate(
 	type: StructType,

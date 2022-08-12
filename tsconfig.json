@@ -5,7 +5,12 @@
 		"moduleResolution": "node",
 		"target": "ESNext",
 		"lib": ["DOM", "ESNext"],
-		"declaration": true
+		"declaration": true,
+		"strict": true,
+		"paths": {
+			"#wjs": ["./index.ts"],
+			"#wjs/*": ["./*"]
+		}
 	},
 	"include": ["src/**/*.ts"]
 }

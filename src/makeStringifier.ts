@@ -1,6 +1,6 @@
-import escapeString from "./escapeString";
-import makeValueString from "./makeValueString";
-import { ReplacerFunction, Schema } from "./types";
+import escapeString from "#wjs/escapeString";
+import makeValueString from "#wjs/makeValueString";
+import { ReplacerFunction, Schema } from "#wjs/types";
 
 export default function makeStringifier(
 	schema: Schema,
@@ -11,10 +11,8 @@ export default function makeStringifier(
 	}
 ) {
 	options ??= {};
-	// options.replacer ??= undefined;
 	options.escaper ??= escapeString;
 	options.bindings ??= {};
-	// console.log(makeValueString("", schema, [], options.replacer));
 
 	const stringifier = new Function(
 		"obj",
@@ -26,10 +24,6 @@ export default function makeStringifier(
 	});
 	// Preserve the toString for debugging.
 	boundStringifier.toString = () => stringifier.toString();
-	// Change name.
-	Object.defineProperty(boundStringifier, "name", {
-		writable: false,
-		value: "WORST.stringify",
-	});
+
 	return boundStringifier;
 }

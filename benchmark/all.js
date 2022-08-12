@@ -2,17 +2,15 @@
  * Testing `SJS` performance against native `JSON.stringify` and the fastest
  * stringifier in town `fast-json-stringify`
  */
-import Benchmark from "benchmark";
 
+import fjs from "fast-json-stringify";
 import protobuf from "protobufjs";
-import { attr, sjs } from "slow-json-stringify";
+import { attr, escape, sjs } from "slow-json-stringify";
 import { makeStringifier } from "../dist/index.js";
-
-const suite = new Benchmark.Suite();
 
 // Lorem ipsum pretty long text
 const obj = {
-	string: `Quaerat itaque deserunt fuga facilis voluptate. Corrupti dolores velit deserunt. Ipsam consequatur est labore.
+	string: ` itaque deserunt fuga facilis voluptate. Corrupti dolores velit deserunt. Ipsam consequatur est labore.
 
 Nisi voluptate aliquid hic molestias. Labore perspiciatis voluptas explicabo error dolores sequi porro. Tenetur quia minima hic cum porro repellat possimus laborum.
 
@@ -183,75 +181,61 @@ Et qui necessitatibus vel. Vel saepe sit voluptatem sequi. Debitis ut ducimus do
 };
 
 // Fast-json-stringify schema
-// const fastStringify = fjs({
-// 	$schema: "http://json-schema.org/draft-04/schema#",
-// 	type: "object",
-// 	properties: {
-// 		status: {
-// 			type: "string",
-// 		},
-// 		data: {
-// 			type: "object",
-// 			properties: {
-// 				id: {
-// 					type: "string",
-// 				},
-// 				first_name: {
-// 					type: "string",
-// 				},
-// 				last_surname: {
-// 					type: "string",
-// 				},
-// 				email: {
-// 					type: "string",
-// 				},
-// 				gender: {
-// 					type: "string",
-// 				},
-// 				age: {
-// 					type: "integer",
-// 				},
-// 				phone: {
-// 					type: "string",
-// 				},
-// 				country: {
-// 					type: "string",
-// 				},
-// 				state: {
-// 					type: "string",
-// 				},
-// 				city: {
-// 					type: "string",
-// 				},
-// 				street: {
-// 					type: "string",
-// 				},
-// 				house: {
-// 					type: "integer",
-// 				},
-// 			},
-// 			required: [
-// 				"id",
-// 				"first_name",
-// 				"last_surname",
-// 				"email",
-// 				"gender",
-// 				"age",
-// 				"phone",
-// 				"country",
-// 				"state",
-// 				"city",
-// 				"street",
-// 				"house",
-// 			],
-// 		},
-// 	},
-// 	required: ["status", "data"],
-// });
+const fastStringify = fjs({
+	type: "object",
+	properties: {
+		string: { type: "string", escape: true },
+		uint32: { type: "number" },
+		inner: {
+			type: "object",
+			properties: {
+				int32: { type: "number" },
+				innerInner: {
+					type: "object",
+					properties: {
+						long: {
+							type: "object",
+							properties: {
+								low: { type: "number" },
+								high: { type: "number" },
+
+								unsigned: { type: "boolean" },
+							},
+						},
+						enum: { type: "number" },
+						enum1: { type: "number" },
+						enum2: { type: "number" },
+						enum3: { type: "number" },
+						enum4: { type: "number" },
+						enum5: { type: "number" },
+						enum6: { type: "number" },
+						enum7: { type: "number" },
+						enum8: { type: "number" },
+						enum9: { type: "number" },
+						enum0: { type: "number" },
+						sint32: { type: "number" },
+					},
+				},
+				outer: {
+					type: "object",
+					properties: {
+						bool: {
+							type: "array",
+							items: { anyOf: [{ type: "boolean" }] },
+						},
+						double: { type: "number" },
+					},
+				},
+			},
+		},
+		float: { type: "number" },
+	},
+});
 
 // Slow-json-stringify schema
+const escaper = escape();
 const slowStringify = sjs({
-	string: attr("string"),
+	string: attr("string", (s) => escaper(s)),
 	uint32: attr("number"),
 	inner: {
 		int32: attr("number"),
@@ -288,7 +272,7 @@ const slowStringify = sjs({
 const worstStringify = makeStringifier({
 	type: "struct",
 	children: {
-		string: { type: "string", escape: false },
+		string: { type: "string", escape: true },
 		uint32: { type: "number" },
 		inner: {
 			type: "struct",
@@ -336,62 +320,35 @@ const worstStringify = makeStringifier({
 	},
 });
 
-console.log("result", worstStringify.toString());
-
 const MessageType = protobuf
 	.loadSync("./benchmark/benchmark.proto")
 	.lookupType("Test");
 
-const res = [];
+import { baseline, bench, group, run } from "mitata";
 
-const percentageDiff = (arr) => {
-	const use = arr.sort((a, b) => b - a);
-	return ((use[0] - use[1]) / use[1]) * 100;
-};
-
-console.log("```bash");
-
-suite
-	.add("native", () => JSON.stringify(obj))
-	// .add("fast-json-stringify", () => fastStringify(obj))
-	.add("slow-json-stringify", () => slowStringify(obj))
-	.add("worst-json-stringify", () => worstStringify(obj))
-	.add("protobufjs", () => {
+group("large string", () => {
+	bench("native", () => {
+		JSON.stringify(obj);
+	});
+	bench("fast-json-stringify", () => {
+		fastStringify(obj);
+	});
+	bench("slow-json-stringify", () => {
+		slowStringify(obj);
+	});
+	baseline("worst-json-stringify", () => {
+		worstStringify(obj);
+	});
+	bench("protobuf", () => {
 		MessageType.encode(MessageType.create(obj)).finish();
-	})
-	.on("cycle", (event) => {
-		res.push(Math.floor(event.target.hz));
-		console.log(String(event.target));
-	})
-	.on("complete", function () {
-		const fastest = this.filter("fastest").map("name");
-		console.log(`\n# ${fastest} is +${percentageDiff(res).toFixed(2)}% faster`);
-		console.log("```\n");
-	})
-	.run();
+	});
+});
 
-// const strObj = JSON.stringify(obj);
-// const msg = pb.encode(pb.create(obj)).finish();
-
-// suite
-// 	.add("native", () => JSON.parse(strObj))
-// 	.add("fast-json-parse", () => parse(strObj))
-// 	.add("protobuf", () => {
-// 		pb.toObject(pb.decode(msg));
-// 	})
-// 	.on("cycle", (event) => {
-// 		res.push(Math.floor(event.target.hz));
-// 		console.log(String(event.target));
-// 	})
-// 	.on("complete", function () {
-// 		const fastest = this.filter("fastest").map("name");
-// 		console.log(`\n# ${fastest} is +${percentageDiff(res).toFixed(2)}% faster`);
-// 		console.log("\n```\n");
-// 	})
-// 	.run();
-
-// `SJS` is faster on nested properties and short text
-
-// native x 911,912 ops/sec ±1.67% (86 runs sampled)
-// fast-json-stringify x 3,337,796 ops/sec ±1.62% (87 runs sampled)
-// slow-json-stringify x 4,636,561 ops/sec ±3.18% (88 runs sampled)
+await run({
+	avg: true, // enable/disable avg column (default: true)
+	json: false, // enable/disable json output (default: false)
+	colors: true, // enable/disable colors (default: true)
+	min_max: true, // enable/disable min/max column (default: true)
+	collect: false, // enable/disable collecting returned values into an array during the benchmark (default: false)
+	percentiles: true, // enable/disable percentiles column (default: true)
+});
