@@ -6,18 +6,18 @@ import { ReplacerFunction, Schema } from "#wjs/types";
 
 export default function makeTemplate(
 	schema: Schema,
-	deep: PropertyKey[] = [],
+	path: PropertyKey[] = [],
 	replacer?: ReplacerFunction | void
 ) {
 	switch (schema.type) {
 		case "struct":
-			return makeStructTemplate(schema, deep, replacer);
+			return makeStructTemplate(schema, path, replacer);
 		case "object":
-			return makeObjectTemplate(schema, deep, replacer);
+			return makeObjectTemplate(schema, path, replacer);
 		case "tuple":
-			return makeTupleTemplate(schema, deep, replacer);
+			return makeTupleTemplate(schema, path, replacer);
 		case "array":
-			return makeArrayTemplate(schema, deep, replacer);
+			return makeArrayTemplate(schema, path, replacer);
 		default:
 			throw new Error(`Invalid base schema: ${schema}`);
 	}

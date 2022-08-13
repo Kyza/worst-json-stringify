@@ -5,14 +5,14 @@ import { ReplacerFunction, StructType } from "#wjs/types";
 
 export default function makeStructTemplate(
 	type: StructType,
-	deep: PropertyKey[] = [],
+	path: PropertyKey[] = [],
 	replacer?: ReplacerFunction | void
 ) {
 	let template = '"{"';
 
 	let first = true;
 	for (let [childKey, childType] of Object.entries(type.children)) {
-		const newDeep = [...deep, childKey];
+		const newDeep = [...path, childKey];
 		const accessor = accessSubKey(newDeep);
 		let nextValueString = "";
 

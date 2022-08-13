@@ -1,5 +1,6 @@
 import path from "path";
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 
 function base(...dirs: string[]) {
 	return path.join(__dirname, ...dirs);
@@ -46,4 +47,5 @@ export default defineConfig({
 		minify: prod ? "terser" : "esbuild",
 		sourcemap: prod ? "hidden" : "inline",
 	},
+	plugins: [dts()],
 });

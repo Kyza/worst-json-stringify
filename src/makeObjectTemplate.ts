@@ -4,10 +4,10 @@ import { ObjectType, ReplacerFunction } from "#wjs/types";
 
 export default function makeObjectTemplate(
 	schema: ObjectType,
-	deep: PropertyKey[] = [],
+	path: PropertyKey[] = [],
 	replacer?: ReplacerFunction | void
 ) {
-	const accessor = accessSubKey(deep);
+	const accessor = accessSubKey(path);
 	let template = `"{"+Object.entries(${accessor}).reduce((acc,[key, obj],i)=>{if(i>0)acc+=",";acc+='"'+this.escapeString(key)+'":';`;
 
 	let first = true;

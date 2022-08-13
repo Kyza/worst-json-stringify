@@ -7,13 +7,13 @@ import { ReplacerFunction, Type } from "#wjs/types";
 export default function makeValueString(
 	accessor: string,
 	type: Type,
-	deep: PropertyKey[],
+	path: PropertyKey[],
 	replacer: ReplacerFunction | void,
 	iterator?: boolean
 ): string {
 	let override: string | undefined;
 	if (typeof replacer === "function") {
-		override = replacer(accessor, { ...type }, [...deep], !!iterator);
+		override = replacer(accessor, { ...type }, [...path], !!iterator);
 	}
 
 	if (iterator) {
@@ -43,13 +43,14 @@ export default function makeValueString(
 					break;
 			}
 		} else {
-			checkCode = `${override}`;
+			// Ensure it's a string.
+			checkCode = override.toString();
 		}
 
 		return `${checkCode}return acc+${makeValueString(
 			accessor,
 			type,
-			deep,
+			path,
 			replacer,
 			false
 		)};`;
@@ -74,13 +75,13 @@ export default function makeValueString(
 			// Number.isFinite returns false for Infinity and NaN.
 			return `(!Number.isFinite(${accessor})?null:${accessor})`;
 		case "tuple":
-			return makeTupleTemplate(type as any, deep, replacer);
+			return makeTupleTemplate(type as any, path, replacer);
 		case "array":
-			return makeArrayTemplate(type as any, deep, replacer);
+			return makeArrayTemplate(type as any, path, replacer);
 		case "struct":
-			return makeStructTemplate(type as any, deep, replacer);
+			return makeStructTemplate(type as any, path, replacer);
 		case "object":
-			return makeObjectTemplate(type as any, deep, replacer);
+			return makeObjectTemplate(type as any, path, replacer);
 		default:
 			// If the type is not specified, return the accessor.
 			return accessor;

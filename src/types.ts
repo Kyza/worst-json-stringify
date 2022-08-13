@@ -51,6 +51,6 @@ export type Schema =
 export type ReplacerFunction = (
 	accessor: string,
 	type: Type,
-	deep: PropertyKey[],
+	path: PropertyKey[],
 	iterator: boolean
 ) => any;

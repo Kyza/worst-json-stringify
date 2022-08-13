@@ -5,6 +5,7 @@ export default function accessSubKey(keys: PropertyKey[], optional?: boolean) {
 		return "obj";
 	}
 
+	// TODO: Use dot notation instead of bracket notation when possible.
 	let accessor = "obj[";
 
 	for (let i = 0; i < keys.length; i++) {

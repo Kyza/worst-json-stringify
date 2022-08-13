@@ -4,7 +4,7 @@ import { ReplacerFunction, TupleType } from "#wjs/types";
 
 export default function makeTupleTemplate(
 	schema: TupleType,
-	deep: PropertyKey[] = [],
+	path: PropertyKey[] = [],
 	replacer?: ReplacerFunction | void
 ) {
 	let template = '"["';
@@ -12,7 +12,7 @@ export default function makeTupleTemplate(
 	let first = true;
 	let key = 0;
 	for (let type of schema.children) {
-		const newDeep = [...deep, key];
+		const newDeep = [...path, key];
 		const accessor = accessSubKey(newDeep);
 		let nextValueString = "";
 

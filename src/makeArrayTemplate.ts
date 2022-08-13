@@ -4,10 +4,10 @@ import { ArrayType, ReplacerFunction } from "#wjs/types";
 
 export default function makeArrayTemplate(
 	schema: ArrayType,
-	deep: PropertyKey[] = [],
+	path: PropertyKey[] = [],
 	replacer?: ReplacerFunction | void
 ) {
-	const accessor = accessSubKey(deep);
+	const accessor = accessSubKey(path);
 	let template = `"["+${accessor}.reduce((acc,obj,i)=>{if(i>0)acc+=",";`;
 
 	let first = true;
