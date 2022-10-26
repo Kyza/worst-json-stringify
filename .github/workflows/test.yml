@@ -19,9 +19,6 @@ jobs:
           - windows-latest
         node_version:
           - 12
-          - 14
-          - 16
-          - 18
           - latest
         architecture:
           - x64
