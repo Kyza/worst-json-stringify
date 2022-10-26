@@ -21,7 +21,7 @@ export default {
 		],
 	},
 	build: {
-		// ssr: true,
+		ssr: true,
 		target: "esnext",
 		emptyOutDir: true,
 		outDir: "dist",
@@ -35,9 +35,9 @@ export default {
 						console.log(chunkInfo);
 
 					// Make sure entries in `input` are index.js files.
-					// if (chunkInfo.isEntry) {
-					// 	return "index.js";
-					// }
+					if (chunkInfo.isEntry) {
+						return "index.js";
+					}
 					// Otherwise use the default name.
 					return `${chunkInfo.name}.js`;
 				},
