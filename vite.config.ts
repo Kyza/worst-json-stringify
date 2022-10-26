@@ -1,9 +1,9 @@
-import * as path from "node:path";
+import path from "node:path";
 import { UserConfigExport } from "vite";
 import dts from "vite-plugin-dts";
 
 function base(...dirs: string[]) {
-	return path.join(__dirname, ...dirs);
+	return path.join(__dirname, ...dirs) + ".js";
 }
 
 const prod = process.env.NODE_ENV === "production";

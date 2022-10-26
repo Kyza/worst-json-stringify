@@ -3,7 +3,7 @@
  * stringifier in town `fast-json-stringify`
  */
 
-import { makeStringifier } from "#wjs";
+import { makeStringifier } from "#dist";
 import fjs from "fast-json-stringify";
 import protobuf from "protobufjs";
 import { attr, escape, sjs } from "slow-json-stringify";
@@ -519,7 +519,7 @@ Et qui necessitatibus vel. Vel saepe sit voluptatem sequi. Debitis ut ducimus do
 	});
 
 	const worstStringify = makeStringifier({
-		type: "struct",
+		type: "object",
 		patterns: {
 			[/string/.toString()]: { type: "string" },
 			[/num/.toString()]: { type: "number" },

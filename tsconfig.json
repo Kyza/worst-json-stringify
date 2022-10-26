@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
-		"rootDir": "./src",
-		"baseUrl": "./src",
+		"rootDir": "./",
+		"baseUrl": "./",
 		"declarationMap": true,
 		"outDir": "./dist/",
 		"moduleResolution": "node",
@@ -12,13 +12,9 @@
 		"strict": true,
 		"noUnusedParameters": true,
 		"noUnusedLocals": true,
+		"allowSyntheticDefaultImports": true,
 		"paths": {
-			"#": ["./"],
-			"#/*": ["./*"],
-			"#wjs": ["./src/index.ts"],
-			"#wjs/*": ["./src/*"]
+			"#*": ["./*"]
 		}
-	},
-	"include": ["./src/**/*"],
-	"exclude": ["node_modules"]
+	}
 }
