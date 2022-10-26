@@ -14,14 +14,14 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Setup NodeJS Environment
-      - uses: actions/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           node-version: latest
           cache: 'pnpm'
           cache-dependency-path: pnpm-lock.json
           
       - name: Install Dependencies
-      - run: pnpm i
+        run: pnpm i
       
       - name: Run Tests
-      - run: pnpm run test
+        run: pnpm run test
