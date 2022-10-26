@@ -1,24 +1,11 @@
-import path from "node:path";
 import { UserConfigExport } from "vite";
 import dts from "vite-plugin-dts";
 
-function base(...dirs: string[]) {
-	return path.join(__dirname, ...dirs) + ".js";
-}
-
-const prod = process.env.NODE_ENV === "production";
-
-const name = "wjs";
+const production = process.env.NODE_ENV === "production";
 
 export default {
 	resolve: {
-		alias: [
-			{ find: `#${name}`, replacement: base("src") },
-			{
-				find: new RegExp(`#${name}/(.+)`),
-				replacement: base("src", "$1"),
-			},
-		],
+		extensions: [".js", ".ts"],
 	},
 	build: {
 		ssr: true,
@@ -45,8 +32,8 @@ export default {
 			},
 			preserveEntrySignatures: "strict",
 		},
-		minify: prod ? "terser" : false,
-		sourcemap: prod ? "hidden" : "inline",
+		minify: production ? "terser" : false,
+		sourcemap: production ? "hidden" : "inline",
 	},
 	plugins: [dts()],
 } as UserConfigExport;
