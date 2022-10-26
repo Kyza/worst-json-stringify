@@ -1,9 +1,9 @@
-import { makeStringifier } from "#wjs";
+import { makeStringifier } from "#wjs-dist";
 import * as assert from "node:assert";
 import { test } from "node:test";
 
 test("top level primitives", async (t) => {
-	await t.test("number", (t) => {
+	await t.test("number", () => {
 		const stringifier = makeStringifier({
 			type: "number",
 		});
@@ -30,7 +30,7 @@ test("top level primitives", async (t) => {
 		assert.strictEqual(stringifier(), JSON.stringify());
 	});
 
-	await t.test("boolean", (t) => {
+	await t.test("boolean", () => {
 		const stringifier = makeStringifier({
 			type: "boolean",
 		});
@@ -47,7 +47,7 @@ test("top level primitives", async (t) => {
 		assert.strictEqual(stringifier(), JSON.stringify());
 	});
 
-	await t.test("string", (t) => {
+	await t.test("string", () => {
 		const stringifier = makeStringifier({
 			type: "string",
 		});
@@ -63,7 +63,7 @@ test("top level primitives", async (t) => {
 		assert.strictEqual(stringifier(), JSON.stringify());
 	});
 
-	await t.test("const", (t) => {
+	await t.test("const", () => {
 		const stringifier = makeStringifier({
 			type: "const",
 			value: '"Jarred"',
