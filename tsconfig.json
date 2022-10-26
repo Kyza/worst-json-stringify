@@ -1,16 +1,17 @@
 {
 	"compilerOptions": {
-		"baseUrl": "./src/",
+		"rootDir": "./",
+		"baseUrl": "./",
 		"outDir": "./dist/",
 		"moduleResolution": "node",
 		"target": "ESNext",
+		"module": "ESNext",
 		"lib": ["DOM", "ESNext"],
 		"declaration": true,
 		"strict": true,
 		"paths": {
-			"#wjs": ["./index.ts"],
-			"#wjs/*": ["./*"]
+			"#wjs": ["./src/index.ts"],
+			"#wjs/*": ["./src/*"]
 		}
-	},
-	"include": ["src/**/*.ts"]
+	}
 }

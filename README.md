@@ -27,8 +27,8 @@ console.log("Function Source:", stringifyUser.toString());
 console.log(
 	"User String:",
 	stringifyUser({
-		firstName: "John\u1782",
-		age: Infinity,
+		firstName: "Jarred\u1782",
+		age: 19,
 		obj: {
 			one: true,
 			two: NaN,
@@ -89,7 +89,7 @@ summary for large string
 
 ## Explaination
 
-Think of it like a macro. It takes in a schema and returns a function that is specifically made to stringify objects that match that schema. The function it generates--assuming it doesn't contain an `object` or `array` type--will stringify the object without iterating over any properties. That makes it incredibly fast at what it does.
+Think of it like a macro. It takes in a schema and returns a function that is specifically made to stringify objects that match that schema. The function it generates--assuming it doesn't contain an `object` (with types or patterns) or `array` type--will stringify the object without iterating over any properties. That makes it incredibly fast at what it does.
 
 ## Types
 
@@ -102,6 +102,14 @@ Currently the following types are supported:
 - [x] string
 - [x] boolean
 - [x] number
+
+### Struct
+
+Structs are objects that have a static set of keys and values.
+
+### Object
+
+Objects are 
 
 `struct`, and `tuple` have children. The direct children of a `tuple` can't be optional while the children of a `struct` can.
 
@@ -127,23 +135,25 @@ const stringifyUser = makeStringifier(
 		],
 	},
 	{
-		replacer: (accessor, type, path, iterator) => {
-			// Add BigInt support.
-			if (!iterator && type.type === "bigint") {
-				return `${accessor}+"n"`;
-			}
-			// Add Infinity and NaN support.
-			if (!iterator && type.type === "number" && type.ieee754) {
-				return accessor;
-			}
-			// Add RegExp support.
-			if (type.type === "regex") {
-				if (iterator) {
-					return `if(${accessor} instanceof RegExp)`;
-				} else {
-					return `${accessor}.toString()`;
+		replacer: {
+			test({ type, accessor, string, makeValueString }) {
+				switch (type.type) {
+					case "bigint":
+						return `if(typeof ${accessor}==="bigint"){${string}+=${makeValueString()};continue;}`;
+					default:
+						return replacerCancel;
 				}
-			}
+			},
+			value({ type, accessor }) {
+				switch (type.type) {
+					case "bigint":
+						return `${accessor}+"n"`;
+					case "number":
+						if ("ieee754" in type) return accessor;
+					default:
+						return replacerCancel;
+				}
+			},
 		},
 	}
 );
