@@ -12,7 +12,6 @@
 		"noUnusedParameters": true,
 		"noUnusedLocals": true,
 		"paths": {
-			"#/*": ["./*"],
 			"#wjs": ["./src/index.ts"],
 			"#wjs/*": ["./src/*"]
 		}

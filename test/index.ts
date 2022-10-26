@@ -1,4 +1,4 @@
-import { makeStringifier } from "#/dist";
+import { makeStringifier } from "#wjs";
 import * as assert from "node:assert";
 import { test } from "node:test";
 
