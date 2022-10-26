@@ -18,12 +18,9 @@ jobs:
           - macos-latest
           - windows-latest
         node_version:
-          - 12
           - latest
-        architecture:
-          - x64
 
-    name: NodeJS ${{ matrix.node_version }} - ${{ matrix.architecture }} on ${{ matrix.os }}
+    name: NodeJS ${{ matrix.node_version }} on ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v3
@@ -35,6 +32,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-
             
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version }}
+ 
       - uses: pnpm/action-setup@v2.0.1   
         with:  
           version: latest
