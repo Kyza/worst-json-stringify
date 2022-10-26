@@ -45,7 +45,7 @@ export default function makeStringifier(
 	if (baseFunction! == null)
 		throw new Error("Base stringifier function was not found.");
 
-	const allFunctionsString = JSON.stringify(allFunctions, (key, value) => {
+	const allFunctionsString = JSON.stringify(allFunctions, (_key, value) => {
 		if (typeof value === "function") {
 			return value.toString();
 		}
@@ -56,7 +56,6 @@ export default function makeStringifier(
 	baseFunction = baseFunction.bind(allFunctions);
 
 	// Ensure the top level return is a string.
-
 	function ensureStringFunction(obj?: object) {
 		const result = baseFunction(obj);
 		if (typeof result !== "string" && result !== undefined) {

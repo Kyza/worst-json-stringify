@@ -6,6 +6,8 @@ function base(...dirs: string[]) {
 	return path.join(__dirname, ...dirs);
 }
 
+const prod = process.env.NODE_ENV === "production";
+
 const name = "wjs";
 
 export default {
@@ -19,8 +21,9 @@ export default {
 		],
 	},
 	build: {
-		ssr: true,
+		// ssr: true,
 		target: "esnext",
+		emptyOutDir: true,
 		outDir: "dist",
 		rollupOptions: {
 			input: {
@@ -28,10 +31,13 @@ export default {
 			},
 			output: {
 				entryFileNames: (chunkInfo) => {
+					if (chunkInfo.name.startsWith("access"))
+						console.log(chunkInfo);
+
 					// Make sure entries in `input` are index.js files.
-					if (chunkInfo.isEntry) {
-						return "index.js";
-					}
+					// if (chunkInfo.isEntry) {
+					// 	return "index.js";
+					// }
 					// Otherwise use the default name.
 					return `${chunkInfo.name}.js`;
 				},
@@ -42,8 +48,8 @@ export default {
 			},
 			preserveEntrySignatures: "strict",
 		},
-		minify: false,
-		sourcemap: "hidden",
+		minify: prod ? "terser" : false,
+		sourcemap: prod ? "hidden" : "inline",
 	},
 	plugins: [dts()],
 } as UserConfigExport;

@@ -1,4 +1,4 @@
-import accessSubkey from "./accessSubKey";
+import accessSubkey from "./accessSubkey";
 import escapeString from "./escapeString";
 import makeFunction from "./makeFunction";
 import makeValueString from "./makeValueString";

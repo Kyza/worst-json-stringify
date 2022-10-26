@@ -35,7 +35,7 @@ export default function makeValueString(
 		case "number":
 			// Follow the JSON specification and convert Infinity and NaN to null. 🤮
 			// Number.isFinite returns false for Infinity and NaN.
-			// return accessor;
+			// JSON.stringify(undefined) returns the literal undefined so check for this as well.
 			return `(!Number.isFinite(${accessor})?${accessor}===undefined?undefined:null:${accessor})`;
 		case "tuple":
 			return `this.${makeTupleFunction(
@@ -61,6 +61,6 @@ export default function makeValueString(
 		case "boolean":
 		default:
 			// If the type is not specified, return the accessor.
-			return accessor.toString();
+			return accessor;
 	}
 }

@@ -22,6 +22,7 @@ export default function escapeString(str: string | unknown) {
 	}
 
 	// Return early without iterating over the rest of the string if no characters were escaped.
+	// TODO: Check if this is actually faster.
 	if (escaped.length === 0) return '"' + str + '"';
 
 	return '"' + escaped + str.slice(last) + '"';

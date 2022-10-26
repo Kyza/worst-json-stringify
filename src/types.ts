@@ -44,19 +44,22 @@ export type NumberType = {
 };
 
 export type KnownType =
-	| ObjectType
 	| StructType
 	| TupleType
+	| ObjectType
 	| ArrayType
 	| StringType
 	| ConstType
 	| BooleanType
 	| NumberType;
-export type CustomType = {
-	// A string that isn't a known type.
-	type: Exclude<string, KnownType["type"]>;
-	[key: PropertyKey]: unknown;
-};
+export type CustomType = Omit<
+	{
+		// A string that isn't a known type.
+		type: Exclude<string, KnownType["type"]>;
+		[key: PropertyKey]: unknown;
+	},
+	"optional"
+>;
 
 export type Type = KnownType | CustomType;
 export type OptionalType = Type & { optional?: true };

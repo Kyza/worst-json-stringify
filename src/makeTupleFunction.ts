@@ -1,4 +1,4 @@
-import accessSubkey from "./accessSubKey";
+import accessSubkey from "./accessSubkey";
 import makeFunction from "./makeFunction";
 import makeValueString from "./makeValueString";
 import { StringiferOptions, TupleType } from "./types";

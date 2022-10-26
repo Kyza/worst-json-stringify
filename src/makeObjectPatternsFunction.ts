@@ -20,7 +20,6 @@ export default function makeObjectPatternsFunction(
 			options
 		);
 
-		// An actual RegExp is required.
 		template += `if(${regex}.test(ents[i][0])){${
 			objectify ? "" : "matchedKeys.push(ents[i][0]);"
 		}`;

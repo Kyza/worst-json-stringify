@@ -4,7 +4,6 @@
 	"main": "./dist/index.js",
 	"type": "module",
 	"devDependencies": {
-		"@jest/globals": "^29.2.2",
 		"@types/node": "^18.11.5",
 		"esbuild": "^0.15.12",
 		"fast-json-parse": "^1.0.3",
@@ -13,8 +12,7 @@
 		"mitata": "^0.1.6",
 		"protobufjs": "^6.11.3",
 		"slow-json-stringify": "^2.0.1",
-		"ts-jest": "^29.0.3",
-		"ts-node": "^10.9.1",
+		"terser": "^5.15.1",
 		"tsx": "^3.11.0",
 		"typescript": "^4.8.4",
 		"vite": "^3.1.8",
