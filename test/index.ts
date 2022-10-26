@@ -1,6 +1,6 @@
-import { makeStringifier } from "#wjs";
 import * as assert from "node:assert";
 import { test } from "node:test";
+import { makeStringifier } from "../dist";
 
 test("top level primitives", async (t) => {
 	await t.test("number", () => {

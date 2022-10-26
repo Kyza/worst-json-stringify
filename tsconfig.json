@@ -1,7 +1,8 @@
 {
 	"compilerOptions": {
-		"rootDir": "./",
-		"baseUrl": "./",
+		"rootDir": "./src",
+		"baseUrl": "./src",
+		"declarationMap": true,
 		"outDir": "./dist/",
 		"moduleResolution": "node",
 		"target": "ESNext",
@@ -12,8 +13,12 @@
 		"noUnusedParameters": true,
 		"noUnusedLocals": true,
 		"paths": {
+			"#": ["./"],
+			"#/*": ["./*"],
 			"#wjs": ["./src/index.ts"],
 			"#wjs/*": ["./src/*"]
 		}
-	}
+	},
+	"include": ["./src/**/*"],
+	"exclude": ["node_modules"]
 }
