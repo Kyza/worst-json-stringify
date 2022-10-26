@@ -1,3 +1,5 @@
+import * as symbols from "./symbols";
+
 export { default as accessSubkey } from "./accessSubkey";
 export { default as escapeString } from "./escapeString";
 export { default as makeArrayFunction } from "./makeArrayFunction";
@@ -10,6 +12,4 @@ export { default as makeStructFunction } from "./makeStructFunction";
 export { default as makeTestString } from "./makeTestString";
 export { default as makeTupleFunction } from "./makeTupleFunction";
 export { default as makeValueString } from "./makeValueString";
-
-import * as symbols from "./symbols";
 export { symbols };

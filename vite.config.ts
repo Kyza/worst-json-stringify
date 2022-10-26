@@ -27,13 +27,10 @@ export default {
 		outDir: "dist",
 		rollupOptions: {
 			input: {
-				index: "src/index.ts",
+				index: "./src/index.ts",
 			},
 			output: {
 				entryFileNames: (chunkInfo) => {
-					if (chunkInfo.name.startsWith("access"))
-						console.log(chunkInfo);
-
 					// Make sure entries in `input` are index.js files.
 					if (chunkInfo.isEntry) {
 						return "index.js";

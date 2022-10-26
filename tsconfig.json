@@ -6,7 +6,7 @@
 		"moduleResolution": "node",
 		"target": "ESNext",
 		"module": "ESNext",
-		"lib": ["DOM", "ESNext"],
+		"lib": ["ESNext"],
 		"declaration": true,
 		"strict": true,
 		"noUnusedParameters": true,
