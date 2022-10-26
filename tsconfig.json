@@ -12,8 +12,7 @@
 		"noUnusedParameters": true,
 		"noUnusedLocals": true,
 		"paths": {
-			"#wjs-dist": ["./dist/index.js"],
-			"#wjs-dist/*": ["./dist/*"],
+			"#/*": ["./*"],
 			"#wjs": ["./src/index.ts"],
 			"#wjs/*": ["./src/*"]
 		}
