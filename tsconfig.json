@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
-		"rootDir": "./",
-		"baseUrl": "./",
+		"rootDir": "./src",
+		"baseUrl": "./src",
 		"declarationMap": true,
 		"outDir": "./dist/",
 		"moduleResolution": "node",
@@ -12,9 +12,6 @@
 		"strict": true,
 		"noUnusedParameters": true,
 		"noUnusedLocals": true,
-		"allowSyntheticDefaultImports": true,
-		"paths": {
-			"#*": ["./*"]
-		}
+		"allowSyntheticDefaultImports": true
 	}
 }

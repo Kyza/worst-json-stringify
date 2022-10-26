@@ -1,4 +1,4 @@
-import accessSubkey from "./accessSubkey.js";
+import accessSubkey from "./accessSubkey";
 import escapeString from "./escapeString";
 import makeFunction from "./makeFunction";
 import makeValueString from "./makeValueString";

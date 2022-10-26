@@ -4,9 +4,6 @@ import dts from "vite-plugin-dts";
 const production = process.env.NODE_ENV === "production";
 
 export default {
-	resolve: {
-		extensions: [".js", ".ts"],
-	},
 	build: {
 		ssr: true,
 		target: "esnext",

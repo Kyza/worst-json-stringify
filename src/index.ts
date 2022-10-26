@@ -1,4 +1,4 @@
-export { default as accessSubkey } from "./accessSubkey.js";
+export { default as accessSubkey } from "./accessSubkey";
 export { default as escapeString } from "./escapeString";
 export { default as makeArrayFunction } from "./makeArrayFunction";
 export { default as makeFunction } from "./makeFunction";
