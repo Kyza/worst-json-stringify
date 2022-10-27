@@ -45,4 +45,4 @@ jobs:
         run: pnpm i --frozen-lockfile
       
       - name: Run Tests
-        run: pnpm run test:prod
+        run: pnpm run test:once

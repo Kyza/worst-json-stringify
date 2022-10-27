@@ -1,20 +1,20 @@
 {
 	"compilerOptions": {
-		"rootDir": "./",
-		"baseUrl": "./",
 		"declarationMap": true,
-		"outDir": "./dist/",
-		"moduleResolution": "node",
+		"outDir": "./dist",
 		"target": "ESNext",
 		"module": "ESNext",
-		"lib": ["ESNext"],
+		"lib": ["DOM", "ESNext"],
 		"declaration": true,
 		"strict": true,
 		"noUnusedParameters": true,
 		"noUnusedLocals": true,
 		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"esModuleInterop": true,
 		"paths": {
 			"#*": ["./*"]
 		}
-	}
+	},
+	"include": ["src"]
 }

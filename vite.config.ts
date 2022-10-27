@@ -1,9 +1,20 @@
+import path from "node:path";
 import { UserConfigExport } from "vite";
 import dts from "vite-plugin-dts";
 
-const production = process.env.NODE_ENV === "production";
+function base(...dirs: string[]) {
+	return path.join(__dirname, ...dirs);
+}
 
 export default {
+	resolve: {
+		alias: [
+			{
+				find: /#(.+)/,
+				replacement: base("$1"),
+			},
+		],
+	},
 	build: {
 		ssr: true,
 		target: "esnext",
@@ -29,8 +40,8 @@ export default {
 			},
 			preserveEntrySignatures: "strict",
 		},
-		minify: production ? "terser" : false,
-		sourcemap: production ? "hidden" : "inline",
+		minify: "terser",
+		sourcemap: "hidden",
 	},
 	plugins: [dts()],
 } as UserConfigExport;
